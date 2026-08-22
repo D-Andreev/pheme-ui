@@ -22,6 +22,7 @@ There are still no components implemented.
 | 4 | Which syntax-highlighting library — Prism/highlight.js (CSS-class tokens, themeable via Nocturne's own `--color-*` tokens) or Shiki (better grammars, but bakes theme colors in as inline styles)? | Prism. | Prism or highlight.js — Prism (or highlight.js) taken as-is. |
 | 5 | For math rendering — KaTeX (fast, covers this UI's needs) or MathJax (heavier, broader LaTeX coverage not needed here)? | KaTeX. | KaTeX; taken as-is. |
 | 6 | Does "fully functional" extend to the whole markdown surface — a `Markdown`/`MessageContent` component that parses a raw markdown string end-to-end (headings/lists/tables/blockquote, routing fenced code into `CodeBlock` and math into `MathBlock`) — or do structural elements stay CSS-only styling applied to app-parsed markup, with only `CodeBlock`/`MathBlock` independently functional? | The full pipeline — `react-markdown` + `remark-gfm` + `remark-math`/`rehype-katex`, with a custom renderer routing fenced code through `CodeBlock`. | Full pipeline; taken as-is. |
+| 7 | "Pixel perfect" is an explicit acceptance criterion, but the repo has no visual-regression tooling (only vitest + RTL + jsdom). Verify via (a) behavior-focused TDD tests + manual Storybook comparison against the mockup, or (b) stand up automated visual-regression testing (Playwright/Chromatic) as part of this issue? | (a) — behavior tests + manual Storybook comparison; no new visual-regression infra in this issue. | (a); taken as-is. |
 
 ## Acceptance criteria
 - [ ] ...
