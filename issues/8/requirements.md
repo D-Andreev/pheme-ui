@@ -24,6 +24,7 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 | 5 | Test coverage for `ChatDemo` — full per-trigger TDD coverage, a light smoke test, or no dedicated test file? | No need to test it | Full per-trigger TDD coverage |
 | 6 | Unmatched input fallback, and should there be a reset/clear-conversation control? | Agreed with recommendation: friendly fallback `AssistantMessage` nudging toward `help`; yes to a reset control | Friendly fallback + reset control |
 | 7 | Should triggering `ArtifactPanel` open the real split-view layout (thread narrows, panel appears, closable) or render inline/unopened like other components? | Agreed — open the real split-view layout | Open the real split-view layout |
+| 8 | Should the demo have a `Mobile` viewport story variant, matching repo convention, or is a single default story enough? | Skip mobile | Skip mobile — coverage, not responsive layout, is the point |
 
 ## Acceptance criteria
 - [ ] A new interactive `ChatDemo` component + Storybook story exists, not exported from the library's `src/index.ts`
@@ -35,6 +36,7 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 - [ ] Unmatched input renders a friendly fallback `AssistantMessage` pointing to `help`
 - [ ] A reset/clear-conversation control returns the demo to its initial `EmptyThread` state
 - [ ] Triggering `ArtifactPanel` opens the real split-view layout (thread narrows, panel appears, with a close control back to normal width)
+- [ ] No `Mobile` viewport story variant for this issue (single default-viewport story is sufficient)
 
 ## Approved by human
 - [ ] Pending — say `approve requirements` in the session when ready
