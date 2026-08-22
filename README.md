@@ -1,4 +1,4 @@
-# pheme-ui
+# pheme-ui [Storybook](http://blog.dimitarandreev.com/pheme-ui/)
 
 React UI component library for building AI chat interfaces — the Nocturne
 design system: messages, thinking/tool-call states, markdown/code/math
