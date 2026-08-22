@@ -21,6 +21,7 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 | 2 | Cover all 24 components as demo triggers, or just the chat-facing/showcase set (skip `Button`/`Card` structural primitives)? | Showcase set only | Showcase set only |
 | 3 | How should users discover what to type — `EmptyThread` suggestions only, static docs list only, an in-chat `help` keyword only, or a mix? | Both — `EmptyThread` suggestions for a few highlights plus a `help` keyword that lists every trigger in-chat | Both |
 | 4 | Should mock responses simulate real streaming (generating state, delay, optional `ThinkingBlock`, streaming caret) or render instantly? | Simulate it | Simulate it |
+| 5 | Test coverage for `ChatDemo` — full per-trigger TDD coverage, a light smoke test, or no dedicated test file? | No need to test it | Full per-trigger TDD coverage |
 
 ## Acceptance criteria
 - [ ] A new interactive `ChatDemo` component + Storybook story exists, not exported from the library's `src/index.ts`
@@ -28,6 +29,7 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 - [ ] Demo starts on `EmptyThread` with a handful of highlight suggestions (clicking sends them)
 - [ ] A `help` keyword returns an `AssistantMessage` listing every available trigger keyword
 - [ ] Sending a message shows `Composer`'s `generating` state and a brief simulated delay before the response renders (with `streaming` caret / `ThinkingBlock` used where relevant) rather than responding instantly
+- [ ] No dedicated `ChatDemo.test.tsx` — per human's clarify answer, this demo ships without its own test file (existing per-component tests are untouched)
 
 ## Approved by human
 - [ ] Pending — say `approve requirements` in the session when ready
