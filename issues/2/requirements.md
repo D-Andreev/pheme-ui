@@ -59,7 +59,6 @@ Tailwind theme config.
 - [ ] Tailwind theme config in place per the issue's provided config (CSS custom-property-backed tokens)
 - [ ] CSS variable tokens shipped for both dark (`:root` default) and light (`[data-theme="light"]`) themes, matching the design mockup; no theme-toggle component/logic in this PR
 - [ ] Exactly two minimal example components (`Button`, `Card`/`MessageBubble` shell) with stories + trivial render tests; no real chat implementation yet
-- [ ] ...
 
 ## Approved by human
 - [ ] Pending — say `approve requirements` in the session when ready
