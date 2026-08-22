@@ -17,9 +17,10 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 ## Clarifications
 | # | Question | Answer | Recommended |
 |---|----------|--------|-------------|
+| 1 | Should the full demo be a new, self-contained interactive component (own local React state, real send/receive loop off `Composer`, keyword-matched mock responses) living Storybook-only and *not* exported from `src/index.ts` (e.g. `src/demo/ChatDemo.tsx` + `.stories.tsx`, under a `Demo/`/`Examples/` category)? | Yes | Yes |
 
 ## Acceptance criteria
-- [ ] ...
+- [ ] A new interactive `ChatDemo` component + Storybook story exists, not exported from the library's `src/index.ts`
 
 ## Approved by human
 - [ ] Pending — say `approve requirements` in the session when ready
