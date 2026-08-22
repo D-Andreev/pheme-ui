@@ -1,0 +1,110 @@
+/**
+ * pheme-ui design tokens.
+ *
+ * Dark is the default theme (`:root`); opt into light by setting
+ * `data-theme="light"` on `<html>` or any ancestor element. Values mirror
+ * the approved design mockup (issue #2) — see `workflow/PROJECT.md` for
+ * where a value had to be assumed rather than read off the mockup.
+ */
+
+:root {
+  /* — surfaces & text — */
+  --color-bg: #161826;
+  --color-surface: #232532;
+  --color-text: #e9e9ed;
+  --color-divider: color-mix(in srgb, #e9e9ed 16%, transparent);
+
+  /* — accent — */
+  --color-accent: #9184d9;
+  --color-accent-2: #a7a1db;
+  --color-accent-100: #f5f4ff;
+  --color-accent-200: #e7e5fe;
+  --color-accent-300: #d2cefd;
+  --color-accent-400: #b5abfc;
+  --color-accent-500: #968ae0;
+  --color-accent-600: #796cbf;
+  --color-accent-700: #5d5294;
+  --color-accent-800: #423a6a;
+  --color-accent-900: #2b2741;
+
+  --color-accent-2-100: #f5f4ff;
+  --color-accent-2-200: #e7e5fe;
+  --color-accent-2-300: #d2cefd;
+  --color-accent-2-400: #b5afe8;
+  --color-accent-2-500: #9690c9;
+  --color-accent-2-600: #7972a9;
+  --color-accent-2-700: #5c5783;
+  --color-accent-2-800: #423e5d;
+  --color-accent-2-900: #2b293a;
+
+  /* — neutral ramp — */
+  --color-neutral-100: #f3f5fe;
+  --color-neutral-200: #e4e7f5;
+  --color-neutral-300: #cfd3e5;
+  --color-neutral-400: #b2b6ca;
+  --color-neutral-500: #9397ab;
+  --color-neutral-600: #75798c;
+  --color-neutral-700: #595d6c;
+  --color-neutral-800: #3f424d;
+  --color-neutral-900: #292b31;
+
+  /* — deck/section fills (not interface colors) — */
+  --color-section: #262a60;
+  --color-section-glow: #353b80;
+  --color-section-ghost: #4c5397;
+
+  /*
+   * — status colors —
+   * Not present in the design mockup (promoted from a later chat-components
+   * board referenced by the issue's tailwind config, but not shown to us).
+   * Assumed as a standard red/green pair at a lightness consistent with the
+   * rest of the dark ramp; revisit against the real board when it's shared.
+   */
+  --color-danger: #ef4444;
+  --color-danger-300: #fca5a5;
+  --color-success: #22c55e;
+  --color-success-300: #86efac;
+
+  /* — typography — */
+  --font-heading: "Inter", system-ui, sans-serif;
+  --font-heading-weight: 500;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* — spacing (density-0.7x scale) — */
+  --space-1: 2.8px;
+  --space-2: 5.6px;
+  --space-3: 8.4px;
+  --space-4: 11.2px;
+  --space-6: 16.8px;
+  --space-8: 22.4px;
+
+  /* — radius — */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+
+  /* — elevation (hairline edge + ambient darkness, dark theme) — */
+  --shadow-sm: 0 0 0 1px #3f424d;
+  --shadow-md: 0 0 0 1px #595d6c, 0 6px 18px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 0 0 1px #9397ab, 0 16px 40px rgba(0, 0, 0, 0.65);
+}
+
+[data-theme="light"] {
+  --color-bg: #f3f5fe;
+  --color-surface: #e4e7f5;
+  --color-text: #1d1f24;
+  --color-divider: rgba(41, 43, 49, 0.16);
+
+  /* accent stays put; only the text/icon step drops to -700 for contrast */
+  --color-accent-ink: var(--color-accent-700);
+
+  /* — elevation (soft ink-tinted shadows, light theme) — */
+  --shadow-sm: 0 0 0 1px rgba(41, 43, 49, 0.1);
+  --shadow-md: 0 0 0 1px rgba(41, 43, 49, 0.12), 0 6px 18px rgba(41, 43, 49, 0.1);
+  --shadow-lg: 0 0 0 1px rgba(41, 43, 49, 0.14), 0 16px 40px rgba(41, 43, 49, 0.14);
+
+  /* — status colors, light-theme steps — */
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+  --color-success-700: #15803d;
+}
