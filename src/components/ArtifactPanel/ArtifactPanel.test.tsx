@@ -42,7 +42,7 @@ describe("ArtifactPanel", () => {
   });
 
   it("renders CodeBlock output in code mode and not children", () => {
-    render(
+    const { container } = render(
       <ArtifactPanel
         title="onboarding.md"
         mode="code"
@@ -54,7 +54,8 @@ describe("ArtifactPanel", () => {
       </ArtifactPanel>,
     );
     expect(screen.queryByText("Preview body content")).not.toBeInTheDocument();
-    expect(screen.getByText((_, node) => node?.textContent === sampleCode)).toBeInTheDocument();
+    expect(container.querySelector(".pheme-code")).toBeInTheDocument();
+    expect(container.querySelector("code")?.textContent).toBe(sampleCode);
   });
 
   it("calls onModeChange with 'preview' when the Preview toggle is clicked", async () => {
