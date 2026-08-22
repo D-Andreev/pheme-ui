@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "issue_number": 8,
+  "pr_number": 9,
+  "review_head_sha": "9026ec2e3a6af241222e2ee3bc28f4336531f24a",
+  "verdict": "APPROVE WITH NOTES",
+  "created_at": "2026-08-22T16:44:14.595Z",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "summary": "Thread container never auto-scrolls to the latest message, so a multi-turn conversation leaves new content below the fold",
+      "paths": [
+        "src/demo/ChatDemo.tsx"
+      ],
+      "required": false
+    },
+    {
+      "id": "F2",
+      "severity": "note",
+      "summary": "Composer's stop control renders during generating but no onStop is wired, so it's inert per Composer's documented behavior",
+      "paths": [
+        "src/demo/ChatDemo.tsx"
+      ],
+      "required": false
+    }
+  ]
+}

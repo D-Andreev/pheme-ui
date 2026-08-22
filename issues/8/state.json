@@ -5,20 +5,20 @@
   "mode": "feature",
   "task": "[Feature]: full demo",
   "phase": "review",
-  "status": "ai_running",
-  "workflow_label": "workflow:review",
+  "status": "done",
+  "workflow_label": "workflow:human-review",
   "base_branch": "main",
   "state_branch": "workflow/state",
   "work_branch": "workflow/issue-8",
   "handoff_path": "issues/8",
   "requirements_approved": true,
   "clarify_rounds": 8,
-  "review_verdict": null,
-  "review_head_sha": null,
+  "review_verdict": "APPROVE WITH NOTES",
+  "review_head_sha": "9026ec2e3a6af241222e2ee3bc28f4336531f24a",
   "pr_number": 9,
   "pr_url": "https://github.com/D-Andreev/pheme-ui/pull/9",
   "created_at": "2026-08-22T16:17:15.970Z",
-  "updated_at": "2026-08-22T16:43:21.511Z",
+  "updated_at": "2026-08-22T16:44:14.595Z",
   "last_session_url": null,
   "history": [
     {
@@ -72,6 +72,16 @@
       "phase": "review",
       "event": "started",
       "at": "2026-08-22T16:43:21.511Z"
+    },
+    {
+      "phase": "review",
+      "event": "phase_completed",
+      "at": "2026-08-22T16:44:14.595Z"
+    },
+    {
+      "phase": "review",
+      "event": "pr_comment_posted",
+      "at": "2026-08-22T16:44:14.595Z"
     }
   ],
   "human_feedback": [],
