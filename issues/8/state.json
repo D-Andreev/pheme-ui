@@ -5,8 +5,8 @@
   "mode": "feature",
   "task": "[Feature]: full demo",
   "phase": "implement",
-  "status": "ai_running",
-  "workflow_label": "workflow:clarify",
+  "status": "done",
+  "workflow_label": "workflow:review",
   "base_branch": "main",
   "state_branch": "workflow/state",
   "work_branch": "workflow/issue-8",
@@ -15,10 +15,10 @@
   "clarify_rounds": 8,
   "review_verdict": null,
   "review_head_sha": null,
-  "pr_number": null,
-  "pr_url": null,
+  "pr_number": 9,
+  "pr_url": "https://github.com/D-Andreev/pheme-ui/pull/9",
   "created_at": "2026-08-22T16:17:15.970Z",
-  "updated_at": "2026-08-22T16:27:23.347Z",
+  "updated_at": "2026-08-22T16:39:59.543Z",
   "last_session_url": null,
   "history": [
     {
@@ -57,6 +57,11 @@
       "phase": "implement",
       "event": "work_branch_created",
       "at": "2026-08-22T16:27:23.347Z"
+    },
+    {
+      "phase": "implement",
+      "event": "phase_completed",
+      "at": "2026-08-22T16:39:59.543Z"
     }
   ],
   "human_feedback": [],
