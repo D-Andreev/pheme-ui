@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "ts": "2026-08-22T17:46:49.034Z",
+  "issue_number": 8,
+  "phase": "close",
+  "event": "close_completed",
+  "session_id": null,
+  "method": "llm",
+  "suggestions_applicable": true,
+  "findings_total": 2,
+  "findings_addressed": 2,
+  "findings_partial": 0,
+  "findings_ignored": 0,
+  "findings_unknown": 0,
+  "critical_total": 0,
+  "critical_addressed": 0,
+  "minor_total": 1,
+  "minor_addressed": 1,
+  "notes_total": 1,
+  "notes_addressed": 1,
+  "commits_since_review": 1,
+  "dispositions": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "summary": "Thread container never auto-scrolls to the latest message, so a multi-turn conversation leaves new content below the fold",
+      "required": false,
+      "disposition": "addressed",
+      "paths_touched": 1,
+      "paths_total": 1,
+      "method": "llm"
+    },
+    {
+      "id": "F2",
+      "severity": "note",
+      "summary": "Composer's stop control renders during generating but no onStop is wired, so it's inert per Composer's documented behavior",
+      "required": false,
+      "disposition": "addressed",
+      "paths_touched": 1,
+      "paths_total": 1,
+      "method": "llm"
+    }
+  ]
+}
