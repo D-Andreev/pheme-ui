@@ -35,7 +35,7 @@ export function MessageBubble({
   ...rest
 }: MessageBubbleProps) {
   return (
-    <div className={cx("group relative ml-auto max-w-[85%] sm:max-w-prose", className)} {...rest}>
+    <div className={cx("group relative ml-auto w-fit max-w-[85%] sm:max-w-prose", className)} {...rest}>
       <Card elevation="sm" className="border border-accent/20 bg-accent/10">
         {content}
       </Card>

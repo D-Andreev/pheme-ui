@@ -52,4 +52,20 @@ describe("SourceList", () => {
     const { container } = render(<SourceList sources={single} />);
     expect(container.querySelectorAll(".hr")).toHaveLength(0);
   });
+
+  it("does not render an anchor for an unsafe url scheme", () => {
+    const unsafe = [
+      { index: 1, title: "Malicious Source", url: "javascript:alert(1)" },
+    ];
+    render(<SourceList sources={unsafe} />);
+    expect(screen.getByText("Malicious Source").tagName).toBe("SPAN");
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
+  });
+
+  it("renders a plain span, not a link, for an unparseable url", () => {
+    const malformed = [{ index: 1, title: "Bad URL Source", url: "not a url" }];
+    render(<SourceList sources={malformed} />);
+    expect(screen.getByText("Bad URL Source").tagName).toBe("SPAN");
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
+  });
 });

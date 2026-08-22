@@ -53,6 +53,7 @@ export const Generating: Story = {
   args: {
     value: "Tell me about the Nocturne design system",
     generating: true,
+    onStop: () => {},
   },
 };
 

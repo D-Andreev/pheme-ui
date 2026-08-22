@@ -71,11 +71,29 @@ describe("Composer", () => {
     expect(onSubmit).toHaveBeenCalledOnce();
   });
 
-  it("swaps in a stop-style control and makes the textarea read-only when generating", () => {
+  it("swaps in an inert status control and makes the textarea read-only when generating without onStop", () => {
     render(<Composer value="hi" onChange={() => {}} onSubmit={() => {}} generating />);
     expect(screen.getByRole("textbox")).toHaveAttribute("readonly");
     expect(screen.queryByRole("button", { name: "Send message" })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Generating response" })).toBeInTheDocument();
+    const button = screen.getByRole("button", { name: "Generating response" });
+    expect(button).toBeInTheDocument();
+    expect(button).toBeDisabled();
+  });
+
+  it("swaps in an enabled stop control that calls onStop when generating with onStop provided", async () => {
+    const user = userEvent.setup();
+    const onSubmit = vi.fn();
+    const onStop = vi.fn();
+    render(
+      <Composer value="hi" onChange={() => {}} onSubmit={onSubmit} generating onStop={onStop} />,
+    );
+
+    const button = screen.getByRole("button", { name: "Stop generating" });
+    expect(button).toBeEnabled();
+
+    await user.click(button);
+    expect(onStop).toHaveBeenCalledOnce();
+    expect(onSubmit).not.toHaveBeenCalled();
   });
 
   it("renders attachment chips and calls onRemoveAttachment with the right id", async () => {

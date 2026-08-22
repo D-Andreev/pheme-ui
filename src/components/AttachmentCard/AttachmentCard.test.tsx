@@ -52,7 +52,35 @@ describe("AttachmentCard", () => {
     expect(onRemove).toHaveBeenCalledOnce();
   });
 
-  it("labels the remove control as a retry action on error", () => {
+  it("shows a distinct retry control on error, separate from remove", async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+    const onRetry = vi.fn();
+    render(
+      <AttachmentCard
+        filename="report.pdf"
+        status="error"
+        errorMessage="Network error."
+        onRemove={onRemove}
+        onRetry={onRetry}
+      />,
+    );
+
+    const retryButton = screen.getByRole("button", { name: "Retry upload of report.pdf" });
+    const removeButton = screen.getByRole("button", { name: "Remove report.pdf" });
+    expect(retryButton).toBeInTheDocument();
+    expect(removeButton).toBeInTheDocument();
+
+    await user.click(retryButton);
+    expect(onRetry).toHaveBeenCalledOnce();
+    expect(onRemove).not.toHaveBeenCalled();
+
+    await user.click(removeButton);
+    expect(onRemove).toHaveBeenCalledOnce();
+    expect(onRetry).toHaveBeenCalledOnce();
+  });
+
+  it("omits the retry control on error when onRetry is not provided", () => {
     render(
       <AttachmentCard
         filename="report.pdf"
@@ -61,7 +89,13 @@ describe("AttachmentCard", () => {
         onRemove={() => {}}
       />,
     );
-    expect(screen.getByRole("button", { name: "Retry upload of report.pdf" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Retry upload of report.pdf" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Remove report.pdf" })).toBeInTheDocument();
+  });
+
+  it("omits the retry control outside of the error status even if onRetry is provided", () => {
+    render(<AttachmentCard filename="report.pdf" status="success" onRetry={() => {}} />);
+    expect(screen.queryByRole("button", { name: /retry/i })).not.toBeInTheDocument();
   });
 
   it("omits the remove button when onRemove is not provided", () => {

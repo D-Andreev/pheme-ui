@@ -52,6 +52,20 @@ function hostname(url: string): string {
 }
 
 /**
+ * Guards against `javascript:`/`data:`/etc. hrefs sneaking through from
+ * source data that isn't always trustworthy (search results, tool output).
+ * Only `http:`/`https:` links are rendered as real anchors.
+ */
+function isSafeHttpUrl(url: string): boolean {
+  try {
+    const protocol = new URL(url).protocol;
+    return protocol === "http:" || protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+/**
  * The list of sources a set of `Citation` markers point into — one row per
  * source, separated by the system's fading-rule divider.
  */
@@ -64,14 +78,20 @@ export function SourceList({ sources, className, ...rest }: SourceListProps) {
           <div className="flex items-center gap-ds-3 py-ds-2">
             <Citation index={source.index} />
             <div className="flex min-w-0 flex-1 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-ds-2">
-              <a
-                href={source.url}
-                target="_blank"
-                rel="noreferrer"
-                className="truncate text-sm text-accent hover:underline"
-              >
-                {source.title}
-              </a>
+              {isSafeHttpUrl(source.url) ? (
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="truncate text-sm text-accent hover:underline"
+                >
+                  {source.title}
+                </a>
+              ) : (
+                <span className="truncate text-sm text-text" title={source.url}>
+                  {source.title}
+                </span>
+              )}
               <span className="shrink-0 truncate text-xs text-neutral-500">
                 {hostname(source.url)}
               </span>

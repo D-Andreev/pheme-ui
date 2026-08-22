@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { Button } from "../Button/Button";
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export interface LightboxImage {
   src: string;
@@ -26,6 +29,23 @@ export interface LightboxProps extends HTMLAttributes<HTMLDivElement> {
 export function Lightbox({ images, index, onClose, onNavigate, className, ...rest }: LightboxProps) {
   const hasMultiple = images.length > 1;
   const current = images[index];
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Focus trap + restoration: move focus into the dialog on open, cycle Tab
+  // within it while open, and give focus back to whatever triggered it
+  // (e.g. an ImageGrid thumbnail) on close — a `role="dialog"` with
+  // `aria-modal="true"` is a lie to assistive tech without both halves of
+  // this.
+  useEffect(() => {
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const container = containerRef.current;
+    const focusable = container?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+    focusable?.[0]?.focus();
+
+    return () => {
+      previouslyFocused?.focus?.();
+    };
+  }, []);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -35,6 +55,23 @@ export function Lightbox({ images, index, onClose, onNavigate, className, ...res
         onNavigate((index + 1) % images.length);
       } else if (event.key === "Escape") {
         onClose();
+      } else if (event.key === "Tab") {
+        const container = containerRef.current;
+        if (!container) return;
+        const focusable = Array.from(
+          container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+        );
+        if (focusable.length === 0) return;
+
+        const first = focusable[0]!;
+        const last = focusable[focusable.length - 1]!;
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     }
 
@@ -48,6 +85,7 @@ export function Lightbox({ images, index, onClose, onNavigate, className, ...res
 
   return (
     <div
+      ref={containerRef}
       role="dialog"
       aria-modal="true"
       aria-label="Image viewer"

@@ -22,6 +22,11 @@ describe("MessageBubble", () => {
     expect(screen.getByText("markdown")).toBeInTheDocument();
   });
 
+  it("shrink-wraps to its content instead of stretching to its max-width cap", () => {
+    const { container } = render(<MessageBubble content="Hi" />);
+    expect(container.firstElementChild).toHaveClass("w-fit");
+  });
+
   it("does not render an edit action when editable is falsy", () => {
     render(<MessageBubble content="Hello there" />);
     expect(screen.queryByRole("button", { name: "Edit message" })).not.toBeInTheDocument();

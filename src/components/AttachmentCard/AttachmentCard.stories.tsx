@@ -42,6 +42,7 @@ export const Error: Story = {
     status: "error",
     errorMessage: "Upload failed — file exceeds the 100 MB limit.",
     onRemove: () => {},
+    onRetry: () => {},
   },
 };
 

@@ -15,8 +15,15 @@ export interface AttachmentCardProps extends Omit<HTMLAttributes<HTMLDivElement>
   progress?: number;
   /** Error detail shown when `status="error"`. */
   errorMessage?: string;
-  /** Called when the remove/retry (×) control is clicked. Omit to hide the control entirely. */
+  /** Called when the remove (×) control is clicked. Omit to hide the control entirely. */
   onRemove?: () => void;
+  /**
+   * Called when the retry control is clicked, shown only when `status="error"`.
+   * Distinct from `onRemove` — a failed upload can be retried without discarding
+   * it, dismissed via `onRemove`, or both controls can be offered together.
+   * Omit to hide the retry control.
+   */
+  onRetry?: () => void;
 }
 
 const CheckIcon = () => (
@@ -42,6 +49,18 @@ const CloseIcon = () => (
   </svg>
 );
 
+const RetryIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path
+      d="M13 8A5 5 0 1 1 11.5 4.3M13 2.5V5.5H10"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 /**
  * File-attachment chip showing filename/size alongside uploading, success,
  * or error state.
@@ -53,6 +72,7 @@ export function AttachmentCard({
   progress,
   errorMessage,
   onRemove,
+  onRetry,
   className,
   ...rest
 }: AttachmentCardProps) {
@@ -110,11 +130,23 @@ export function AttachmentCard({
         </span>
       ) : null}
 
+      {isError && onRetry ? (
+        <Button
+          icon
+          variant="ghost"
+          aria-label={`Retry upload of ${filename}`}
+          onClick={onRetry}
+          className="shrink-0"
+        >
+          <RetryIcon />
+        </Button>
+      ) : null}
+
       {onRemove ? (
         <Button
           icon
           variant="ghost"
-          aria-label={isError ? `Retry upload of ${filename}` : `Remove ${filename}`}
+          aria-label={`Remove ${filename}`}
           onClick={onRemove}
           className="shrink-0"
         >

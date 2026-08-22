@@ -86,4 +86,11 @@ describe("ToolCallCard", () => {
     expect(screen.getByText("Something broke")).toBeInTheDocument();
     expect(screen.queryByText("Result")).not.toBeInTheDocument();
   });
+
+  it("failed: falls back to a placeholder when error is empty or omitted", () => {
+    render(
+      <ToolCallCard name="run_shell" args={{ command: "pnpm test" }} status="failed" defaultExpanded />,
+    );
+    expect(screen.getByText("No error details were provided.")).toBeInTheDocument();
+  });
 });

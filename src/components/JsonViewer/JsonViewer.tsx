@@ -166,7 +166,7 @@ export function JsonViewer({
   ...rest
 }: JsonViewerProps) {
   return (
-    <div className={cx("font-mono text-sm", className)} {...rest}>
+    <div className={cx("overflow-x-auto font-mono text-sm", className)} {...rest}>
       <JsonNode keyLabel={name} value={data} depth={0} defaultExpanded={defaultExpanded} />
     </div>
   );

@@ -72,4 +72,44 @@ describe("Lightbox", () => {
     expect(screen.queryByRole("button", { name: "Previous image" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Next image" })).not.toBeInTheDocument();
   });
+
+  it("moves focus into the dialog on open and restores it to the trigger on close", () => {
+    const trigger = document.createElement("button");
+    trigger.textContent = "Open lightbox";
+    document.body.appendChild(trigger);
+    trigger.focus();
+    expect(document.activeElement).toBe(trigger);
+
+    const { unmount } = render(
+      <Lightbox images={IMAGES} index={0} onClose={vi.fn()} onNavigate={vi.fn()} />,
+    );
+    expect(document.activeElement).toBe(screen.getByRole("button", { name: "Close" }));
+
+    unmount();
+    expect(document.activeElement).toBe(trigger);
+    trigger.remove();
+  });
+
+  it("traps Tab within the dialog's focusable elements", async () => {
+    const user = userEvent.setup();
+    render(<Lightbox images={IMAGES} index={1} onClose={vi.fn()} onNavigate={vi.fn()} />);
+
+    const close = screen.getByRole("button", { name: "Close" });
+    const prev = screen.getByRole("button", { name: "Previous image" });
+    const next = screen.getByRole("button", { name: "Next image" });
+
+    expect(document.activeElement).toBe(close);
+
+    await user.tab();
+    expect(document.activeElement).toBe(prev);
+    await user.tab();
+    expect(document.activeElement).toBe(next);
+    // Wraps back to the first focusable element instead of leaving the dialog.
+    await user.tab();
+    expect(document.activeElement).toBe(close);
+
+    // Shift+Tab from the first element wraps to the last.
+    await user.tab({ shift: true });
+    expect(document.activeElement).toBe(next);
+  });
 });

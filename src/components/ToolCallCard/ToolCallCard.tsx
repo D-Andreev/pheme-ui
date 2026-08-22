@@ -150,7 +150,7 @@ export function ToolCallCard({
                 Error
               </span>
               <div className="rounded-sm bg-danger/10 p-ds-2 font-mono text-sm text-danger-300">
-                {error}
+                {error && error.trim().length > 0 ? error : "No error details were provided."}
               </div>
             </div>
           )}

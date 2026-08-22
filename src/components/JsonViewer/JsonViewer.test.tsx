@@ -108,4 +108,9 @@ describe("JsonViewer", () => {
     expect(container.firstElementChild).toHaveClass("custom-class");
     expect(container.firstElementChild).toHaveClass("font-mono");
   });
+
+  it("scrolls its own overflow instead of breaking the parent layout", () => {
+    const { container } = render(<JsonViewer data="x" />);
+    expect(container.firstElementChild).toHaveClass("overflow-x-auto");
+  });
 });

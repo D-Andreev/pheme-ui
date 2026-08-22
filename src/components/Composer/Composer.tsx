@@ -22,6 +22,12 @@ export interface ComposerProps {
   onRemoveAttachment?: (id: string) => void;
   /** True while an assistant response is streaming in — read-onlys the textarea and swaps in a stop-style control. */
   generating?: boolean;
+  /**
+   * Called when the stop control is clicked while `generating` is true.
+   * Omit to leave the control inert (e.g. while a stop endpoint isn't wired
+   * up yet) — it stays disabled and reads as a status indicator instead.
+   */
+  onStop?: () => void;
   /** When set, shows a live character counter and blocks submission once `value.length` exceeds it. */
   maxLength?: number;
   placeholder?: string;
@@ -68,6 +74,7 @@ export function Composer({
   attachments = [],
   onRemoveAttachment,
   generating = false,
+  onStop,
   maxLength,
   placeholder = "Send a message...",
   className,
@@ -79,6 +86,14 @@ export function Composer({
   const submit = () => {
     if (!canSubmit) return;
     onSubmit();
+  };
+
+  const handleActionClick = () => {
+    if (generating) {
+      onStop?.();
+      return;
+    }
+    submit();
   };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -157,9 +172,9 @@ export function Composer({
         <Button
           icon
           variant="primary"
-          aria-label={generating ? "Generating response" : "Send message"}
-          disabled={!canSubmit}
-          onClick={submit}
+          aria-label={generating ? (onStop ? "Stop generating" : "Generating response") : "Send message"}
+          disabled={generating ? !onStop : !canSubmit}
+          onClick={handleActionClick}
           className={generating ? "animate-pulse" : ""}
         >
           {generating ? <StopIcon /> : <SendIcon />}
