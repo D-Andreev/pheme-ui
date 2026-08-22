@@ -1,0 +1,23 @@
+/**
+ * Plain-CSS building blocks shared across the chat components that aren't
+ * expressible as Tailwind utility classes — shipped verbatim in
+ * `dist/styles.css` alongside `tokens.css` (see `tsup.config.ts`).
+ */
+
+/*
+ * "Fading rule" — the design system's signature divider treatment: a 1px
+ * line that fades to transparent over 48px at each end instead of
+ * terminating with a hard edge. Used for standalone dividers, table row
+ * separators, and section boundaries across the chat components.
+ */
+.hr {
+  height: 1px;
+  border: none;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-divider) 48px,
+    var(--color-divider) calc(100% - 48px),
+    transparent
+  );
+}

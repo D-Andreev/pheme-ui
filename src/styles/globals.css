@@ -1,4 +1,7 @@
 @import "./tokens.css";
+@import "./prism-theme.css";
+@import "./shared.css";
+@import "katex/dist/katex.min.css";
 
 @tailwind base;
 @tailwind components;
