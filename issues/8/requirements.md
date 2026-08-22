@@ -23,6 +23,7 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 | 4 | Should mock responses simulate real streaming (generating state, delay, optional `ThinkingBlock`, streaming caret) or render instantly? | Simulate it | Simulate it |
 | 5 | Test coverage for `ChatDemo` — full per-trigger TDD coverage, a light smoke test, or no dedicated test file? | No need to test it | Full per-trigger TDD coverage |
 | 6 | Unmatched input fallback, and should there be a reset/clear-conversation control? | Agreed with recommendation: friendly fallback `AssistantMessage` nudging toward `help`; yes to a reset control | Friendly fallback + reset control |
+| 7 | Should triggering `ArtifactPanel` open the real split-view layout (thread narrows, panel appears, closable) or render inline/unopened like other components? | Agreed — open the real split-view layout | Open the real split-view layout |
 
 ## Acceptance criteria
 - [ ] A new interactive `ChatDemo` component + Storybook story exists, not exported from the library's `src/index.ts`
@@ -33,6 +34,7 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 - [ ] No dedicated `ChatDemo.test.tsx` — per human's clarify answer, this demo ships without its own test file (existing per-component tests are untouched)
 - [ ] Unmatched input renders a friendly fallback `AssistantMessage` pointing to `help`
 - [ ] A reset/clear-conversation control returns the demo to its initial `EmptyThread` state
+- [ ] Triggering `ArtifactPanel` opens the real split-view layout (thread narrows, panel appears, with a close control back to normal width)
 
 ## Approved by human
 - [ ] Pending — say `approve requirements` in the session when ready
