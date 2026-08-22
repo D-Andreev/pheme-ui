@@ -72,6 +72,7 @@ export function ChatDemo({ className, ...rest }: ChatDemoProps) {
   const mountedRef = useRef(true);
   const runIdRef = useRef(0);
   const idCounterRef = useRef(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(
     () => () => {
@@ -79,6 +80,14 @@ export function ChatDemo({ className, ...rest }: ChatDemoProps) {
     },
     [],
   );
+
+  // Follow the newest message/block as the thread grows or streams in —
+  // otherwise a multi-turn session leaves the reader stranded above the fold.
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    container.scrollTop = container.scrollHeight;
+  }, [messages]);
 
   const nextId = useCallback((prefix: string) => {
     idCounterRef.current += 1;
@@ -178,6 +187,14 @@ export function ChatDemo({ className, ...rest }: ChatDemoProps) {
 
   const retryTurn = useCallback((turn: AssistantTurn) => void playTurn(turn.trigger, turn.id), [playTurn]);
 
+  // Interrupts the in-flight `playTurn` loop (its next `isStale()` check fails
+  // once `runIdRef` no longer matches) and leaves whatever blocks already
+  // streamed in as the final state — mirrors stopping a real generation.
+  const handleStop = useCallback(() => {
+    runIdRef.current += 1;
+    setGenerating(false);
+  }, []);
+
   const handleReset = useCallback(() => {
     runIdRef.current += 1;
     setMessages([]);
@@ -203,7 +220,7 @@ export function ChatDemo({ className, ...rest }: ChatDemoProps) {
 
       <div className="flex min-h-0 flex-1 gap-ds-3 p-ds-4">
         <div className="flex min-w-0 flex-1 flex-col gap-ds-3">
-          <div className="flex-1 overflow-y-auto">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto">
             {messages.length === 0 ? (
               <EmptyThread
                 heading="Try the full Pheme chat demo"
@@ -243,6 +260,7 @@ export function ChatDemo({ className, ...rest }: ChatDemoProps) {
             onChange={setValue}
             onSubmit={handleSubmit}
             generating={generating}
+            onStop={handleStop}
             placeholder="Send a message... (try `help`)"
           />
         </div>
