@@ -25,7 +25,33 @@ There are still no components implemented.
 | 7 | "Pixel perfect" is an explicit acceptance criterion, but the repo has no visual-regression tooling (only vitest + RTL + jsdom). Verify via (a) behavior-focused TDD tests + manual Storybook comparison against the mockup, or (b) stand up automated visual-regression testing (Playwright/Chromatic) as part of this issue? | (a) — behavior tests + manual Storybook comparison; no new visual-regression infra in this issue. | (a); taken as-is. |
 
 ## Acceptance criteria
-- [ ] ...
+- [ ] `Markdown`/`MessageContent` — full pipeline (`react-markdown` + `remark-gfm` + `remark-math`/`rehype-katex`) rendering headings, lists, blockquote, tables, inline code, fenced code (routed to `CodeBlock`), and math (routed to `MathBlock`)
+- [ ] `MessageBubble` (user) — default and hover/edit-actions states, built on the existing `Card`
+- [ ] `AssistantMessage` — flush-left, streaming caret, complete + actions row, focus-visible ring
+- [ ] `ErrorMessage` — error + retry state
+- [ ] `EmptyThread` — empty-state heading + suggested prompts
+- [ ] `ThinkingBlock` — collapsed and expanded/streaming states
+- [ ] `ToolCallCard` — running, success (collapsed + expanded arguments/result bands), and failed states
+- [ ] `CodeBlock` — Prism-highlighted, themed via Nocturne `--color-*` tokens, with copy action
+- [ ] `DiffBlock` — added/removed line styling
+- [ ] `JsonViewer` — recursive expand/collapse tree
+- [ ] `MathBlock` — KaTeX-backed inline and block rendering
+- [ ] `ImagePreview` — loading skeleton, loaded, hover-actions states
+- [ ] `ImageGrid` — 2×2 grid with overflow-count tile
+- [ ] `Lightbox` — overlay with prev/next navigation, keyboard support (arrows, Escape)
+- [ ] `VideoEmbed` — poster, play control, scrubber
+- [ ] `AttachmentCard` — uploading (progress), success, and rejected/error states
+- [ ] `Citation`/`SourceList` — inline markers + matching source list
+- [ ] `WebSearchCard` — query + result rows
+- [ ] `Chart` — data-driven two-series bar chart (inline SVG, matching the mockup's neutral/accent series convention)
+- [ ] `SuggestedFollowUps` — left-aligned suggestion buttons
+- [ ] `ArtifactPanel` — split-view panel with version/preview-code-toggle/export header
+- [ ] `Composer` — empty, focus, attachments, generating, and over-limit/blocked states
+- [ ] Every component above works correctly at mobile widths (≥390px) via responsive CSS — not separate mobile-only components — and has a corresponding Storybook viewport/story
+- [ ] Every component respects the existing light/dark theme mechanism (`[data-theme="light"]` override on the shared tokens), matching §08 of the mockup
+- [ ] Storybook stories cover every state listed above; each story is manually checked against the mockup for pixel accuracy (no new visual-regression tooling)
+- [ ] Behavior-focused unit tests (RTL) for every component: props/variants render correctly, interactive components (`ToolCallCard`, `JsonViewer`, `Lightbox`, `VideoEmbed`, `Composer`, `AttachmentCard`) handle their state transitions and keyboard/mouse interactions
+- [ ] New runtime dependencies (`prismjs`/highlighter, `katex`, `react-markdown` + remark/rehype plugins) added to `package.json`; `pheme-ui` remains buildable via the existing `tsup` pipeline and typechecks/lints clean
 
 ## Approved by human
 - [ ] Pending — say `approve requirements` in the session when ready

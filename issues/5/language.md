@@ -18,3 +18,15 @@
 - **Artifact / canvas panel** — a split-view mode where the thread narrows
   to ~220px and a side panel shows a generated document/preview with its
   own header (version, preview/code toggle, export).
+- **Fully functional (vs. presentational)** — per clarify round 3, this
+  issue breaks `pheme-ui`'s zero-runtime-dependency posture (`Button`/
+  `Card` from issue #2). New dependencies added here: **Prism** (syntax
+  highlighting, themed via Nocturne's own `--color-*` tokens rather than a
+  baked-in theme), **KaTeX** (math rendering), and **`react-markdown` +
+  `remark-gfm` + `remark-math`/`rehype-katex`** (the full markdown pipeline
+  behind `Markdown`/`MessageContent`, with a custom renderer routing fenced
+  code through `CodeBlock`).
+- **"Pixel-perfect" verification** — per clarify round 7, satisfied by
+  behavior-focused TDD tests (props/states/interactions) plus manual
+  comparison of each Storybook story against the mockup — not automated
+  visual-regression tooling, which is out of scope for this issue.
