@@ -44,3 +44,15 @@
   the sandbox); component sizing/spacing follows the token scale
   (`--space-*`, `--radius-*`) and the written mockup description rather
   than pixel measurements read directly off the file.
+- **Chat demo (`ChatDemo`)** — per issue #8's clarify round, a new
+  interactive, stateful component living at `src/demo/ChatDemo.tsx`
+  (Storybook-only, deliberately **not** re-exported from `src/index.ts`)
+  that wires the existing presentational components into a live
+  send/receive loop: the user types into `Composer`, a keyword match
+  against their message picks a canned mock response, and the matching
+  showcase component(s) render in the thread with a simulated
+  generating/streaming delay. Distinct from the per-component
+  `*.stories.tsx` files (each of which demos exactly one component in
+  isolation) — `ChatDemo` is the one place all of them are wired together
+  end to end. Ships without its own test file by explicit human answer in
+  clarify (existing per-component tests are unaffected).
