@@ -18,7 +18,13 @@ const variantClasses: Record<ButtonVariant, string> = {
     "text-accent border-accent hover:bg-accent/10 active:bg-accent/20",
   secondary:
     "border-divider hover:bg-text/[0.07] active:bg-text/[0.14]",
-  ghost: "text-accent px-ds-1 hover:bg-accent/10 active:bg-accent/20",
+  ghost: "text-accent hover:bg-accent/10 active:bg-accent/20",
+};
+
+const paddingXClasses: Record<ButtonVariant, string> = {
+  primary: "px-[calc(var(--space-3)*1.2)]",
+  secondary: "px-[calc(var(--space-3)*1.2)]",
+  ghost: "px-ds-1",
 };
 
 /**
@@ -34,7 +40,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       "font-heading font-medium text-sm leading-tight text-text",
       "bg-transparent border border-transparent rounded-md",
       "cursor-pointer disabled:opacity-45 disabled:cursor-not-allowed",
-      icon ? "h-9 w-9 p-0" : "px-[calc(var(--space-3)*1.2)] py-ds-2",
+      icon ? "h-9 w-9 p-0" : `${paddingXClasses[variant]} py-ds-2`,
       block ? "w-full mt-ds-2" : "",
       variantClasses[variant],
       className ?? "",

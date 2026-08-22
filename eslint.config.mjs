@@ -1,6 +1,7 @@
 import js from "@eslint/js";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
+import storybook from "eslint-plugin-storybook";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -48,4 +49,5 @@ export default tseslint.config(
       globals: globals.node,
     },
   },
+  ...storybook.configs["flat/recommended"],
 );
