@@ -44,6 +44,7 @@ Tailwind theme config.
 | 5 | Should Storybook be deployed (GitHub Pages/Chromatic) in this PR, or local-only? | **Rejected recommendation** — deploy Storybook to GitHub Pages via a GitHub Actions workflow that runs on merge to `main` (not local-only) | Local-only; CI builds as smoke test, no deploy |
 | 6 | Should the library bundle/ship the Inter font, or just declare the font-family stack and leave loading to the consumer? | Accepted recommendation: don't bundle a font; keep `"Inter", "system-ui", "sans-serif"` stack as-is in Tailwind config, consumer owns font loading | Declare stack only; consumer loads font |
 | 7 | What license for the public npm package? | Accepted recommendation: MIT | MIT |
+| 8 | Is the "demo" the Storybook-on-Pages deployment, or a separate standalone demo app? | Accepted recommendation: Storybook deployed to GitHub Pages **is** the demo; no separate demo app | Storybook on Pages = the demo |
 
 ## Acceptance criteria
 - [ ] Package scaffolded with TypeScript, `tsup` build producing ESM + CJS + `.d.ts`
@@ -51,7 +52,7 @@ Tailwind theme config.
 - [ ] ESLint flat config (`typescript-eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`) with a lint script
 - [ ] GitHub Actions workflow(s) running build, lint, and test on PRs/pushes
 - [ ] Storybook configured (Vite builder) and able to run locally
-- [ ] CI includes a `storybook build` smoke-test job on PRs; a separate GitHub Actions workflow deploys Storybook to GitHub Pages on merge to `main`
+- [ ] CI includes a `storybook build` smoke-test job on PRs; a separate GitHub Actions workflow deploys Storybook to GitHub Pages on merge to `main` — this deployed Storybook **is** the project's demo (no separate demo app)
 - [ ] Tailwind `fontFamily` keeps the `"Inter", "system-ui", "sans-serif"` stack as declared; no font files/packages bundled in the library
 - [ ] `LICENSE` file (MIT) and `package.json` `"license": "MIT"`
 - [ ] Changesets configured for versioning + npm publish via GitHub Actions
