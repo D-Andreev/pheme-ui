@@ -41,6 +41,7 @@ Tailwind theme config.
 | 2 | Which components ship as "minimal examples" in this initial PR, given the design mockup covers messages, reasoning/tool calls, rich text/code/math, media, sources/charts, composer, mobile, and light theme? | Accepted recommendation: structure only — 2-3 foundational primitives (`Button` and a `Card`/`MessageBubble` shell, no real chat logic), each with a story + trivial render test. Rest of the mockup's component inventory becomes backlog for follow-up issues. | Button + Card/MessageBubble shell only; rest deferred |
 | 3 | Should this PR ship both dark (default) and light theme CSS variable tokens, or defer light theme? | Accepted recommendation: ship CSS variable tokens for both themes (dark `:root` defaults + `[data-theme="light"]` override), Tailwind wired to those variables per the issue's config. No theme-toggle component/logic yet — that's product code. | Ship both themes' tokens now; no toggle logic |
 | 4 | What npm package name/scope, and public or private? | Accepted recommendation: unscoped `pheme-ui`, public npm package, `package.json` `main`/`module`/`types` pointing at `tsup` output, `sideEffects: false` | Unscoped `pheme-ui`, public |
+| 5 | Should Storybook be deployed (GitHub Pages/Chromatic) in this PR, or local-only? | Accepted recommendation: local-only (`pnpm storybook`); CI adds a `storybook build` smoke-test job, no hosting/deployment setup yet | Local-only; CI builds as smoke test, no deploy |
 
 ## Acceptance criteria
 - [ ] Package scaffolded with TypeScript, `tsup` build producing ESM + CJS + `.d.ts`
@@ -48,6 +49,7 @@ Tailwind theme config.
 - [ ] ESLint flat config (`typescript-eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`) with a lint script
 - [ ] GitHub Actions workflow(s) running build, lint, and test on PRs/pushes
 - [ ] Storybook configured (Vite builder) and able to run locally
+- [ ] CI includes a `storybook build` smoke-test job; no Storybook deployment/hosting in this PR
 - [ ] Changesets configured for versioning + npm publish via GitHub Actions
 - [ ] Package named `pheme-ui` (unscoped), public, with `main`/`module`/`types` fields wired to `tsup` output and `sideEffects: false`
 - [ ] Tailwind theme config in place per the issue's provided config (CSS custom-property-backed tokens)
