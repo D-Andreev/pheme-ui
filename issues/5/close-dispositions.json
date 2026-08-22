@@ -1,0 +1,15 @@
+{
+  "dispositions": [
+    {"id": "F1", "disposition": "addressed"},
+    {"id": "F2", "disposition": "addressed"},
+    {"id": "F3", "disposition": "addressed"},
+    {"id": "F4", "disposition": "addressed"},
+    {"id": "F5", "disposition": "partial"},
+    {"id": "F6", "disposition": "addressed"},
+    {"id": "F7", "disposition": "addressed"},
+    {"id": "F8", "disposition": "ignored"},
+    {"id": "F9", "disposition": "ignored"},
+    {"id": "F10", "disposition": "ignored"},
+    {"id": "F11", "disposition": "ignored"}
+  ]
+}
