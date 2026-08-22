@@ -22,6 +22,7 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 | 3 | How should users discover what to type — `EmptyThread` suggestions only, static docs list only, an in-chat `help` keyword only, or a mix? | Both — `EmptyThread` suggestions for a few highlights plus a `help` keyword that lists every trigger in-chat | Both |
 | 4 | Should mock responses simulate real streaming (generating state, delay, optional `ThinkingBlock`, streaming caret) or render instantly? | Simulate it | Simulate it |
 | 5 | Test coverage for `ChatDemo` — full per-trigger TDD coverage, a light smoke test, or no dedicated test file? | No need to test it | Full per-trigger TDD coverage |
+| 6 | Unmatched input fallback, and should there be a reset/clear-conversation control? | Agreed with recommendation: friendly fallback `AssistantMessage` nudging toward `help`; yes to a reset control | Friendly fallback + reset control |
 
 ## Acceptance criteria
 - [ ] A new interactive `ChatDemo` component + Storybook story exists, not exported from the library's `src/index.ts`
@@ -30,6 +31,8 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 - [ ] A `help` keyword returns an `AssistantMessage` listing every available trigger keyword
 - [ ] Sending a message shows `Composer`'s `generating` state and a brief simulated delay before the response renders (with `streaming` caret / `ThinkingBlock` used where relevant) rather than responding instantly
 - [ ] No dedicated `ChatDemo.test.tsx` — per human's clarify answer, this demo ships without its own test file (existing per-component tests are untouched)
+- [ ] Unmatched input renders a friendly fallback `AssistantMessage` pointing to `help`
+- [ ] A reset/clear-conversation control returns the demo to its initial `EmptyThread` state
 
 ## Approved by human
 - [ ] Pending — say `approve requirements` in the session when ready
