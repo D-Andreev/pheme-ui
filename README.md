@@ -1,11 +1,9 @@
 # pheme-ui
 
-React UI component library for building AI chat interfaces.
-
-This is the **initial structure** of the project — build/lint/test/publish
-tooling, Storybook, and Tailwind theming are wired up, and two structural
-primitives ship as a proof of the setup. No chat implementation yet; that
-lands in follow-up issues.
+React UI component library for building AI chat interfaces — the Nocturne
+design system: messages, thinking/tool-call states, markdown/code/math
+rendering, media, sources/search, and a composer, all on Tailwind + CSS
+custom properties with dark/light theming built in.
 
 ## Install
 
@@ -32,15 +30,15 @@ module.exports = {
 
 ```tsx
 import "pheme-ui/styles.css";
-import { Button, Card, CardTitle, CardBody } from "pheme-ui";
+import { MessageBubble, AssistantMessage, Composer } from "pheme-ui";
 
-function Example() {
+function Thread() {
   return (
-    <Card>
-      <CardTitle>Assistant</CardTitle>
-      <CardBody>Structural shell only — no chat logic yet.</CardBody>
-      <Button variant="primary">Send</Button>
-    </Card>
+    <>
+      <MessageBubble content="What's the difference between a Card and a MessageBubble?" />
+      <AssistantMessage content="A Card is the generic shell; MessageBubble builds on it." />
+      <Composer value="" onChange={() => {}} onSubmit={() => {}} />
+    </>
   );
 }
 ```
@@ -50,34 +48,39 @@ Dark is the default theme. Opt into light by setting
 
 ## Components
 
-| Component | Status |
-|-----------|--------|
-| `Button`  | primary / secondary / ghost variants, icon + block modifiers |
-| `Card`, `CardTitle`, `CardBody` | generic surface shell — the structural basis for a future message bubble |
+- **Primitives** — `Button`, `Card`/`CardTitle`/`CardBody`
+- **Messages** — `MessageBubble`, `AssistantMessage`, `ErrorMessage`, `EmptyThread`
+- **Thinking & tool calls** — `ThinkingBlock`, `ToolCallCard`
+- **Markdown / code / math** — `Markdown` (`MessageContent`), `CodeBlock`, `DiffBlock`, `JsonViewer`, `MathBlock`
+- **Media & files** — `ImagePreview`, `ImageGrid`, `Lightbox`, `VideoEmbed`, `AttachmentCard`
+- **Sources / search / charts** — `Citation`/`SourceList`, `WebSearchCard`, `Chart`, `SuggestedFollowUps`, `ArtifactPanel`
+- **Composer** — `Composer`
 
-Browse them interactively in [Storybook](https://d-andreev.github.io/pheme-ui/)
+Browse them interactively in [Storybook](http://blog.dimitarandreev.com/pheme-ui/)
 (deployed from `main`).
 
 ## Development
 
 ```sh
 pnpm install
-pnpm dev           # tsup --watch
-pnpm storybook      # Storybook dev server
-pnpm test           # Vitest
-pnpm lint           # ESLint
+pnpm dev             # tsup --watch
+pnpm storybook       # Storybook dev server
+pnpm test            # Vitest
+pnpm lint            # ESLint
 pnpm typecheck       # tsc --noEmit
 pnpm build           # tsup — ESM + CJS + .d.ts + styles.css
 ```
 
-Requires Node `>=20` and [pnpm](https://pnpm.io).
+Requires Node `>=22` and [pnpm](https://pnpm.io).
 
 ## Releasing
 
-Versioning and npm publish go through
-[Changesets](https://github.com/changesets/changesets): run `pnpm changeset`
-to record a change, merge to `main`, and the `Release` GitHub Actions
-workflow opens a version PR (or publishes once that PR merges).
+Record a change with `pnpm changeset`, merge to `main`, then trigger the
+`Release` GitHub Actions workflow manually (Actions tab → *Release* → Run
+workflow, or `gh workflow run release.yml`). It opens/updates a version PR
+via [Changesets](https://github.com/changesets/changesets) when changesets
+are pending, and publishes to npm once that PR is merged and the workflow
+is run again.
 
 ## License
 
