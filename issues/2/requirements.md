@@ -38,6 +38,7 @@ Tailwind theme config.
 | # | Question | Answer | Recommended |
 |---|----------|--------|-------------|
 | 1 | What toolchain (package manager, bundler, test runner, lint, Storybook builder, publish flow)? | Accepted recommendation: pnpm; `tsup` (ESM+CJS+d.ts); Vitest + `@testing-library/react`; ESLint flat config + `typescript-eslint` + `eslint-plugin-react`/`react-hooks`; Storybook latest (Vite builder); Changesets for versioning/changelog/npm publish via GitHub Actions; React `>=18` peer dep; Node `>=20` | pnpm, tsup, Vitest, ESLint flat config, Storybook (Vite builder), Changesets, React >=18, Node >=20 |
+| 2 | Which components ship as "minimal examples" in this initial PR, given the design mockup covers messages, reasoning/tool calls, rich text/code/math, media, sources/charts, composer, mobile, and light theme? | Accepted recommendation: structure only — 2-3 foundational primitives (`Button` and a `Card`/`MessageBubble` shell, no real chat logic), each with a story + trivial render test. Rest of the mockup's component inventory becomes backlog for follow-up issues. | Button + Card/MessageBubble shell only; rest deferred |
 
 ## Acceptance criteria
 - [ ] Package scaffolded with TypeScript, `tsup` build producing ESM + CJS + `.d.ts`
@@ -47,7 +48,7 @@ Tailwind theme config.
 - [ ] Storybook configured (Vite builder) and able to run locally
 - [ ] Changesets configured for versioning + npm publish via GitHub Actions
 - [ ] Tailwind theme config in place per the issue's provided config (CSS custom-property-backed tokens)
-- [ ] Minimal example component(s) with stories/docs, no real implementation yet
+- [ ] Exactly two minimal example components (`Button`, `Card`/`MessageBubble` shell) with stories + trivial render tests; no real chat implementation yet
 - [ ] ...
 
 ## Approved by human
