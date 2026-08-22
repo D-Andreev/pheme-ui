@@ -1,0 +1,76 @@
+/**
+ * Prism token theme, mapped onto Nocturne's own `--color-*` tokens instead
+ * of a baked-in Prism theme (per clarify round 4 — `CodeBlock`/`DiffBlock`
+ * consume this rather than importing `prismjs/themes/*`).
+ *
+ * Scoped under `.pheme-code` (the wrapper `CodeBlock` renders) so it never
+ * leaks onto unrelated `<pre>`/`<code>` elements a consumer app might have.
+ */
+
+.pheme-code .token.comment,
+.pheme-code .token.prolog,
+.pheme-code .token.doctype,
+.pheme-code .token.cdata {
+  color: var(--color-neutral-500);
+  font-style: italic;
+}
+
+.pheme-code .token.punctuation {
+  color: var(--color-neutral-400);
+}
+
+.pheme-code .token.property,
+.pheme-code .token.tag,
+.pheme-code .token.boolean,
+.pheme-code .token.number,
+.pheme-code .token.constant,
+.pheme-code .token.symbol,
+.pheme-code .token.deleted {
+  color: var(--color-accent-2-400);
+}
+
+.pheme-code .token.selector,
+.pheme-code .token.attr-name,
+.pheme-code .token.string,
+.pheme-code .token.char,
+.pheme-code .token.builtin,
+.pheme-code .token.inserted {
+  color: var(--color-success-300, var(--color-success));
+}
+
+.pheme-code .token.operator,
+.pheme-code .token.entity,
+.pheme-code .token.url {
+  color: var(--color-text);
+  opacity: 0.85;
+}
+
+.pheme-code .token.atrule,
+.pheme-code .token.attr-value,
+.pheme-code .token.keyword {
+  color: var(--color-accent-300);
+}
+
+.pheme-code .token.function,
+.pheme-code .token.class-name {
+  color: var(--color-accent-400);
+}
+
+.pheme-code .token.regex,
+.pheme-code .token.important,
+.pheme-code .token.variable {
+  color: var(--color-danger-300, var(--color-danger));
+}
+
+.pheme-code .token.important,
+.pheme-code .token.bold {
+  font-weight: 700;
+}
+
+.pheme-code .token.italic {
+  font-style: italic;
+}
+
+.pheme-code .token.entity {
+  cursor: help;
+}
