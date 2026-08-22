@@ -1,0 +1,30 @@
+name: Feature request
+description: Request a new feature
+title: "[Feature]: "
+labels:
+  - "workflow:start"
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What's the pain point or gap this addresses?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: What should happen instead?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance criteria
+      description: What must be true for this to be considered done?
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
