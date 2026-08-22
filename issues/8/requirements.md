@@ -18,9 +18,11 @@ In storybook create a full demo of the chat with mock responses. Demonstrate all
 | # | Question | Answer | Recommended |
 |---|----------|--------|-------------|
 | 1 | Should the full demo be a new, self-contained interactive component (own local React state, real send/receive loop off `Composer`, keyword-matched mock responses) living Storybook-only and *not* exported from `src/index.ts` (e.g. `src/demo/ChatDemo.tsx` + `.stories.tsx`, under a `Demo/`/`Examples/` category)? | Yes | Yes |
+| 2 | Cover all 24 components as demo triggers, or just the chat-facing/showcase set (skip `Button`/`Card` structural primitives)? | Showcase set only | Showcase set only |
 
 ## Acceptance criteria
 - [ ] A new interactive `ChatDemo` component + Storybook story exists, not exported from the library's `src/index.ts`
+- [ ] Demo triggers cover the chat-facing showcase set (`MessageBubble`, `AssistantMessage`, `ErrorMessage`, `EmptyThread`, `ThinkingBlock`, `ToolCallCard`, `Markdown`, `CodeBlock`, `DiffBlock`, `JsonViewer`, `MathBlock`, `ImagePreview`, `ImageGrid`, `Lightbox`, `VideoEmbed`, `AttachmentCard`, `Citation`, `WebSearchCard`, `Chart`, `SuggestedFollowUps`, `ArtifactPanel`, `Composer`) — `Button`/`Card` excluded as standalone triggers
 
 ## Approved by human
 - [ ] Pending — say `approve requirements` in the session when ready
