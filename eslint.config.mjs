@@ -12,6 +12,7 @@ export default tseslint.config(
       "storybook-static/**",
       "node_modules/**",
       "bin/send-to-honeycomb.js",
+      "bin/send-to-honeycomb.test.js",
     ],
   },
   js.configs.recommended,
