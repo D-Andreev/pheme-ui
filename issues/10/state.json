@@ -5,8 +5,8 @@
   "mode": "feature",
   "task": "[Feature]: UI improvements",
   "phase": "implement",
-  "status": "ai_running",
-  "workflow_label": "workflow:clarify",
+  "status": "done",
+  "workflow_label": "workflow:review",
   "base_branch": "main",
   "state_branch": "workflow/state",
   "work_branch": "workflow/issue-10",
@@ -15,10 +15,10 @@
   "clarify_rounds": 6,
   "review_verdict": null,
   "review_head_sha": null,
-  "pr_number": null,
-  "pr_url": null,
+  "pr_number": 11,
+  "pr_url": "https://github.com/D-Andreev/pheme-ui/pull/11",
   "created_at": "2026-08-23T08:47:59.051Z",
-  "updated_at": "2026-08-23T09:02:13.255Z",
+  "updated_at": "2026-08-23T09:05:15.719Z",
   "last_session_url": null,
   "history": [
     {
@@ -57,6 +57,11 @@
       "phase": "implement",
       "event": "work_branch_created",
       "at": "2026-08-23T09:02:13.255Z"
+    },
+    {
+      "phase": "implement",
+      "event": "phase_completed",
+      "at": "2026-08-23T09:05:15.719Z"
     }
   ],
   "human_feedback": [],
