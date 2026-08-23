@@ -15,3 +15,7 @@
   The animation pass (transitions, micro-interactions) is treated as
   satisfying the "simplify UI for better UX" half of the original ask;
   no prop or spacing audit is in scope.
+- **Reduced motion (issue #10)** — per clarify round 4, all new
+  Framer Motion transitions and CSS `--motion-*` tokens respect
+  `prefers-reduced-motion: reduce`, collapsing durations to near-zero for
+  users who request it at the OS level.
