@@ -24,3 +24,10 @@
   assertions); verified manually via Storybook, extending the same
   "pixel-perfect" precedent set in issue #5's clarify round 7. Existing
   component tests (non-animation behavior) are unaffected.
+- **Baseline animation surface (issue #10)** — per clarify round 6, the
+  in-scope surface for this pass is: `Button`/clickable `Card`
+  hover-focus-press; entrance/exit for `Lightbox`, `ImagePreview`,
+  `ArtifactPanel`; `ChatDemo` message entrance and a smoother streaming/typing
+  indicator; plus the `--motion-duration-*`/`--motion-ease-*` tokens backing
+  all of it. Chart, JsonViewer, CodeBlock, and everything else are explicitly
+  out of scope for this issue.
