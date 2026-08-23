@@ -19,3 +19,8 @@
   Framer Motion transitions and CSS `--motion-*` tokens respect
   `prefers-reduced-motion: reduce`, collapsing durations to near-zero for
   users who request it at the OS level.
+- **Animation testing (issue #10)** — per clarify round 5, the animation
+  layer ships **without** automated tests (no motion-prop/variant
+  assertions); verified manually via Storybook, extending the same
+  "pixel-perfect" precedent set in issue #5's clarify round 7. Existing
+  component tests (non-animation behavior) are unaffected.
