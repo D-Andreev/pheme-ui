@@ -109,10 +109,6 @@ module.exports = {
       },
 
       keyframes: {
-        "noct-caret": {
-          "0%, 45%": { opacity: 1 },
-          "50%, 100%": { opacity: 0 },
-        },
         "noct-shimmer": {
           "0%": { backgroundPosition: "-240px 0" },
           "100%": { backgroundPosition: "240px 0" },
@@ -120,7 +116,8 @@ module.exports = {
         // noct-spin intentionally omitted — identical to Tailwind's built-in `spin`
       },
       animation: {
-        caret: "noct-caret var(--motion-caret-duration, 1s) steps(1) infinite",
+        // caret: moved to a Framer Motion opacity loop (see lib/motion) — no
+        // longer driven by a Tailwind keyframe.
         shimmer: "noct-shimmer var(--motion-shimmer-duration, 1.4s) linear infinite",
         // spinner: use Tailwind's stock `animate-spin`
       },
