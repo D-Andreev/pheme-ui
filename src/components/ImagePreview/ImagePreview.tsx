@@ -1,8 +1,11 @@
 import type { HTMLAttributes } from "react";
+import { motion } from "framer-motion";
 import { cx } from "../../lib/cx";
 import { Button } from "../Button/Button";
+import { fadeRiseVariants, useMotionTransition } from "../../lib/motion";
+import type { MotionConflictingProps } from "../../lib/motion";
 
-export interface ImagePreviewProps extends HTMLAttributes<HTMLDivElement> {
+export interface ImagePreviewProps extends Omit<HTMLAttributes<HTMLDivElement>, MotionConflictingProps> {
   /** Image URL to render. */
   src: string;
   /** Accessible alt text. Defaults to an empty (decorative) string. */
@@ -28,9 +31,11 @@ export function ImagePreview({
   className,
   ...rest
 }: ImagePreviewProps) {
+  const transition = useMotionTransition("base");
+
   if (loading) {
     return (
-      <div
+      <motion.div
         role="status"
         aria-label="Loading image"
         className={cx(
@@ -39,6 +44,11 @@ export function ImagePreview({
           "bg-shimmer animate-shimmer",
           className,
         )}
+        variants={fadeRiseVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={transition}
         {...rest}
       />
     );
@@ -47,7 +57,15 @@ export function ImagePreview({
   const hasActions = !!(onExpand || onDownload);
 
   return (
-    <div className={cx("group relative aspect-video w-full overflow-hidden rounded-md", className)} {...rest}>
+    <motion.div
+      className={cx("group relative aspect-video w-full overflow-hidden rounded-md", className)}
+      variants={fadeRiseVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={transition}
+      {...rest}
+    >
       <img src={src} alt={alt ?? ""} className="h-full w-full rounded-md object-cover" />
       {hasActions && (
         <div className="absolute bottom-ds-2 right-ds-2 flex gap-ds-1 rounded-md bg-black/50 p-ds-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
@@ -79,6 +97,6 @@ export function ImagePreview({
           )}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

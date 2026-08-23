@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 import type { HTMLAttributes } from "react";
+import { motion } from "framer-motion";
 import { cx } from "../../lib/cx";
 import { Button } from "../Button/Button";
+import { fadeVariants, useMotionTransition } from "../../lib/motion";
+import type { MotionConflictingProps } from "../../lib/motion";
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -11,7 +14,7 @@ export interface LightboxImage {
   alt?: string;
 }
 
-export interface LightboxProps extends HTMLAttributes<HTMLDivElement> {
+export interface LightboxProps extends Omit<HTMLAttributes<HTMLDivElement>, MotionConflictingProps> {
   /** Images available for navigation. */
   images: LightboxImage[];
   /** Index of the currently displayed image within `images`. */
@@ -79,17 +82,24 @@ export function Lightbox({ images, index, onClose, onNavigate, className, ...res
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [images.length, index, onClose, onNavigate]);
 
+  const transition = useMotionTransition("base");
+
   if (!current) {
     return null;
   }
 
   return (
-    <div
+    <motion.div
       ref={containerRef}
       role="dialog"
       aria-modal="true"
       aria-label="Image viewer"
       className={cx("fixed inset-0 z-50 flex items-center justify-center bg-black/80", className)}
+      variants={fadeVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={transition}
       {...rest}
     >
       <Button
@@ -145,6 +155,6 @@ export function Lightbox({ images, index, onClose, onNavigate, className, ...res
           </svg>
         </Button>
       )}
-    </div>
+    </motion.div>
   );
 }

@@ -42,3 +42,23 @@ export const Elevated: Story = {
     ),
   },
 };
+
+/**
+ * Passing `onClick` switches on the interactive treatment (issue #10):
+ * hover/focus/press micro-interactions, a pointer cursor, keyboard
+ * activation (Enter/Space), and `role="button"` — verify by hovering,
+ * tabbing to it, and pressing it, plus toggling OS-level reduced-motion to
+ * confirm the scale animation drops out.
+ */
+export const Clickable: Story = {
+  args: {
+    elevation: "sm",
+    onClick: () => alert("Card activated"),
+    children: (
+      <>
+        <CardTitle>Pick a workspace</CardTitle>
+        <CardBody>Hover, focus, or press — the whole card responds.</CardBody>
+      </>
+    ),
+  },
+};

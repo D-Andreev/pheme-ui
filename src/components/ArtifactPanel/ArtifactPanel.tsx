@@ -1,11 +1,14 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { motion } from "framer-motion";
 import { cx } from "../../lib/cx";
 import { Button } from "../Button/Button";
 import { CodeBlock } from "../CodeBlock/CodeBlock";
+import { fadeRiseVariants, useMotionTransition } from "../../lib/motion";
+import type { MotionConflictingProps } from "../../lib/motion";
 
 export type ArtifactMode = "preview" | "code";
 
-export interface ArtifactPanelProps extends HTMLAttributes<HTMLDivElement> {
+export interface ArtifactPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, MotionConflictingProps> {
   /** Artifact name shown in the header. */
   title: string;
   /** Optional version label shown muted next to the title (e.g. `"v3"`). */
@@ -60,12 +63,19 @@ export function ArtifactPanel({
   className,
   ...rest
 }: ArtifactPanelProps) {
+  const transition = useMotionTransition("base");
+
   return (
-    <div
+    <motion.div
       className={cx(
         "flex h-full w-full sm:w-[380px] flex-col rounded-lg border border-divider bg-surface",
         className,
       )}
+      variants={fadeRiseVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={transition}
       {...rest}
     >
       <div className="flex items-center justify-between gap-ds-2 border-b border-divider px-ds-3 py-ds-2">
@@ -103,6 +113,6 @@ export function ArtifactPanel({
       <div className="flex-1 overflow-auto p-ds-3">
         {mode === "preview" ? children : <CodeBlock code={code ?? ""} language={language} />}
       </div>
-    </div>
+    </motion.div>
   );
 }

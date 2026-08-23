@@ -83,6 +83,22 @@
   --radius-md: 8px;
   --radius-lg: 14px;
 
+  /*
+   * — motion —
+   * Source of truth for durations/easings behind both the CSS `transition`
+   * declarations and the Framer Motion `transition` props used throughout
+   * the library (issue #10). Values are collapsed to near-zero below under
+   * `prefers-reduced-motion: reduce`; JS call sites read the equivalent
+   * numbers via `src/lib/motion.ts`'s `useMotionDurations()` rather than
+   * parsing these strings.
+   */
+  --motion-duration-fast: 120ms;
+  --motion-duration-base: 200ms;
+  --motion-duration-slow: 320ms;
+  --motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --motion-ease-in: cubic-bezier(0.4, 0, 1, 1);
+
   /* — elevation (hairline edge + ambient darkness, dark theme) — */
   --shadow-sm: 0 0 0 1px #3f424d;
   --shadow-md: 0 0 0 1px #595d6c, 0 6px 18px rgba(0, 0, 0, 0.55);
@@ -107,4 +123,20 @@
   --color-danger-600: #dc2626;
   --color-danger-700: #b91c1c;
   --color-success-700: #15803d;
+}
+
+/*
+ * Collapse every CSS-driven transition to near-zero for users who ask for
+ * reduced motion at the OS level — per issue #10 clarify round 4. Framer
+ * Motion call sites handle this separately via `useReducedMotion()` in
+ * `src/lib/motion.ts` (that hook reads the same media query, not these
+ * variables — CSS custom properties can't be read directly inside a JS
+ * `transition` object).
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-fast: 1ms;
+    --motion-duration-base: 1ms;
+    --motion-duration-slow: 1ms;
+  }
 }

@@ -1,9 +1,12 @@
 import { forwardRef } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { motion } from "framer-motion";
+import { useMotionDurations, MOTION_EASE } from "../../lib/motion";
+import type { MotionConflictingProps } from "../../lib/motion";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost";
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, MotionConflictingProps> {
   /** Visual style. Defaults to `"primary"`. */
   variant?: ButtonVariant;
   /** Renders as a 36x36 icon-only button (no text padding). */
@@ -35,11 +38,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     { variant = "primary", icon = false, block = false, className, children, ...rest },
     ref,
   ) => {
+    const durations = useMotionDurations();
     const classes = [
       "inline-flex items-center justify-center gap-1.5",
       "font-heading font-medium text-sm leading-tight text-text",
       "bg-transparent border border-transparent rounded-md",
       "cursor-pointer disabled:opacity-45 disabled:cursor-not-allowed",
+      "transition-colors duration-[var(--motion-duration-base)] ease-[var(--motion-ease-standard)]",
       icon ? "h-9 w-9 p-0" : `${paddingXClasses[variant]} py-ds-2`,
       block ? "w-full mt-ds-2" : "",
       variantClasses[variant],
@@ -49,9 +54,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       .join(" ");
 
     return (
-      <button ref={ref} type="button" className={classes} {...rest}>
+      <motion.button
+        ref={ref}
+        type="button"
+        className={classes}
+        whileHover={rest.disabled ? undefined : { scale: 1.03 }}
+        whileTap={rest.disabled ? undefined : { scale: 0.97 }}
+        whileFocus={rest.disabled ? undefined : { scale: 1.03 }}
+        transition={{ duration: durations.fast, ease: MOTION_EASE.standard }}
+        {...rest}
+      >
         {children}
-      </button>
+      </motion.button>
     );
   },
 );

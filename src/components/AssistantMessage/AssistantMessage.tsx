@@ -1,4 +1,5 @@
 import type { HTMLAttributes } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Markdown } from "../Markdown/Markdown";
 import { Button } from "../Button/Button";
 import { cx } from "../../lib/cx";
@@ -31,6 +32,8 @@ export function AssistantMessage({
   className,
   ...rest
 }: AssistantMessageProps) {
+  const reducedMotion = useReducedMotion();
+
   return (
     <div
       tabIndex={0}
@@ -43,10 +46,16 @@ export function AssistantMessage({
     >
       <Markdown content={content} />
       {streaming ? (
-        <span
+        <motion.span
           aria-hidden="true"
           data-testid="streaming-caret"
-          className="ml-0.5 inline-block h-[1em] w-[2px] align-middle bg-text animate-caret"
+          className="ml-0.5 inline-block h-[1em] w-[2px] align-middle bg-text"
+          animate={reducedMotion ? { opacity: 0.6 } : { opacity: [1, 1, 0, 0] }}
+          transition={
+            reducedMotion
+              ? undefined
+              : { duration: 1, times: [0, 0.45, 0.5, 1], repeat: Infinity, ease: "easeInOut" }
+          }
         />
       ) : null}
       <div data-testid="assistant-message-actions" className="mt-ds-2 flex min-h-9 items-center gap-ds-1">
