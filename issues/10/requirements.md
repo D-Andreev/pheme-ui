@@ -20,6 +20,7 @@ Add some animations and simplify UI for better UX.
 |---|----------|--------|-------------|
 | 1 | Where should this pass land: (a) system-wide tokens + baseline micro-interactions across all presentational components, (b) narrow to `ChatDemo` only, or (c) both, phased? | (a) System-wide: add transition/animation tokens to Nocturne and apply baseline micro-interactions (hover/focus/press, entrance transitions) consistently across all presentational components. | (c) Both, phased — rejected in favor of (a) |
 | 2 | Should animation stay CSS-only (new `--motion-*`/`--ease-*` tokens, plain `transition`/`@keyframes`), or pull in a JS animation library? | Use **Framer Motion**. | CSS-only — rejected in favor of Framer Motion |
+| 3 | What should "simplify UI for better UX" concretely mean: (a) visual-only tightening via existing tokens, (b) prop/API consolidation too, or (c) out of scope, treated as accomplished by the animation pass itself? | (c) Out of scope as a separate workstream — the animation pass itself is treated as satisfying "simplify UI for better UX." | (a) Visual-only tightening — rejected in favor of (c) |
 
 ## Acceptance criteria
 - [ ] ...

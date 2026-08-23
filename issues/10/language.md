@@ -10,3 +10,8 @@
   CSS-only `transition`/`@keyframes`). This breaks the "presentational,
   CSS-token-driven" posture further, alongside the Prism/KaTeX/react-markdown
   dependencies already added in issue #5.
+- **"Simplify UI" (issue #10)** — per clarify round 3, this is explicitly
+  **not** a separate visual/API-consolidation workstream for this issue.
+  The animation pass (transitions, micro-interactions) is treated as
+  satisfying the "simplify UI for better UX" half of the original ask;
+  no prop or spacing audit is in scope.
