@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { HTMLAttributes } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "../components/Button";
 import { MessageBubble } from "../components/MessageBubble";
 import { EmptyThread } from "../components/EmptyThread";
@@ -15,6 +16,7 @@ import {
   AssistantBlockView,
 } from "./chatDemoTriggers";
 import type { AssistantBlock, ArtifactSpec, Trigger } from "./chatDemoTriggers";
+import { messageEnterVariants, useMotionTransition } from "../lib/motion";
 
 interface UserTurn {
   kind: "user";
@@ -63,6 +65,7 @@ export type ChatDemoProps = HTMLAttributes<HTMLDivElement>;
  * `src/index.ts`.
  */
 export function ChatDemo({ className, ...rest }: ChatDemoProps) {
+  const messageTransition = useMotionTransition("base");
   const [messages, setMessages] = useState<ChatDemoMessage[]>([]);
   const [value, setValue] = useState("");
   const [generating, setGenerating] = useState(false);
@@ -231,22 +234,36 @@ export function ChatDemo({ className, ...rest }: ChatDemoProps) {
               <div className="flex flex-col gap-ds-4">
                 {messages.map((message) =>
                   message.kind === "user" ? (
-                    <MessageBubble
+                    <motion.div
                       key={message.id}
-                      content={message.content}
-                      editable
-                      onEdit={() => setValue(message.content)}
-                    />
+                      variants={messageEnterVariants}
+                      initial="initial"
+                      animate="animate"
+                      transition={messageTransition}
+                    >
+                      <MessageBubble
+                        content={message.content}
+                        editable
+                        onEdit={() => setValue(message.content)}
+                      />
+                    </motion.div>
                   ) : (
                     <div key={message.id} className="flex flex-col gap-ds-3">
                       {message.blocks.map((block) => (
-                        <AssistantBlockView
+                        <motion.div
                           key={block.id}
-                          block={block}
-                          onRetry={() => retryTurn(message)}
-                          onFollowUpSelect={handleSend}
-                          onExpandImage={(image) => setLightbox({ images: [image], index: 0 })}
-                        />
+                          variants={messageEnterVariants}
+                          initial="initial"
+                          animate="animate"
+                          transition={messageTransition}
+                        >
+                          <AssistantBlockView
+                            block={block}
+                            onRetry={() => retryTurn(message)}
+                            onFollowUpSelect={handleSend}
+                            onExpandImage={(image) => setLightbox({ images: [image], index: 0 })}
+                          />
+                        </motion.div>
                       ))}
                     </div>
                   ),
@@ -265,39 +282,52 @@ export function ChatDemo({ className, ...rest }: ChatDemoProps) {
           />
         </div>
 
-        {artifact ? (
-          <div className="flex w-full shrink-0 flex-col gap-ds-2 sm:w-[380px]">
-            <div className="flex justify-end">
-              <Button variant="ghost" onClick={() => setArtifact(null)}>
-                Close
-              </Button>
+        {/*
+          The layout wrapper (and its Close button) stays a plain div — only
+          `ArtifactPanel` itself carries the entrance/exit motion, so
+          `AnimatePresence` here just needs to keep the subtree mounted long
+          enough for that nested `motion` component's exit animation to
+          finish (it registers with `AnimatePresence` via context regardless
+          of nesting depth).
+        */}
+        <AnimatePresence>
+          {artifact ? (
+            <div key="artifact-panel" className="flex w-full shrink-0 flex-col gap-ds-2 sm:w-[380px]">
+              <div className="flex justify-end">
+                <Button variant="ghost" onClick={() => setArtifact(null)}>
+                  Close
+                </Button>
+              </div>
+              <ArtifactPanel
+                className="flex-1"
+                title={artifact.title}
+                version={artifact.version}
+                mode={artifact.mode}
+                onModeChange={(mode) => setArtifact((prev) => (prev ? { ...prev, mode } : prev))}
+                code={artifact.code}
+                language={artifact.language}
+              >
+                <h2 className="font-heading text-base">{artifact.title}</h2>
+                <p className="mt-ds-2 text-sm opacity-80">
+                  A generated document, rendered here in preview mode. Switch to Code to see the source.
+                </p>
+              </ArtifactPanel>
             </div>
-            <ArtifactPanel
-              className="flex-1"
-              title={artifact.title}
-              version={artifact.version}
-              mode={artifact.mode}
-              onModeChange={(mode) => setArtifact((prev) => (prev ? { ...prev, mode } : prev))}
-              code={artifact.code}
-              language={artifact.language}
-            >
-              <h2 className="font-heading text-base">{artifact.title}</h2>
-              <p className="mt-ds-2 text-sm opacity-80">
-                A generated document, rendered here in preview mode. Switch to Code to see the source.
-              </p>
-            </ArtifactPanel>
-          </div>
-        ) : null}
+          ) : null}
+        </AnimatePresence>
       </div>
 
-      {lightbox ? (
-        <Lightbox
-          images={lightbox.images}
-          index={lightbox.index}
-          onClose={() => setLightbox(null)}
-          onNavigate={(index) => setLightbox((prev) => (prev ? { ...prev, index } : prev))}
-        />
-      ) : null}
+      <AnimatePresence>
+        {lightbox ? (
+          <Lightbox
+            key="lightbox"
+            images={lightbox.images}
+            index={lightbox.index}
+            onClose={() => setLightbox(null)}
+            onNavigate={(index) => setLightbox((prev) => (prev ? { ...prev, index } : prev))}
+          />
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

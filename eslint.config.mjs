@@ -7,7 +7,13 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["dist/**", "storybook-static/**", "node_modules/**"],
+    ignores: [
+      "dist/**",
+      "storybook-static/**",
+      "node_modules/**",
+      "bin/send-to-honeycomb.js",
+      "bin/send-to-honeycomb.test.js",
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
